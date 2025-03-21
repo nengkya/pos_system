@@ -1,0 +1,28 @@
+<h1> Products </h1>
+
+<form method="post" action={% url 'create_order' %}}>
+    {% csrf_token %}
+    <table>
+	<tr>
+	    <th> Name </th>
+	    <th> Price </th>
+	    <th> Stock </th>
+	    <th> Quantity </th>
+	</tr>
+	{% for product in products %}
+	    <tr>
+		<td> {{ product.name }}  </td>
+		<td> {{ product.price }} </td>
+		<td> {{ product.stock }} </td>
+
+		<td>
+		    <input type=number name=quantities value=0 min=0 max={{ product.stock}}>
+		</td>
+		<td>
+		    <input type=hidden name=product_ids value={{product.id}}>
+		</td>
+	    </tr>
+	{% endfor %}
+    </table>
+    <button type = "submit"> Create Order </button>
+</form>
